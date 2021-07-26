@@ -4,10 +4,10 @@ import styled, { css } from 'styled-components';
 
 
 const Container = styled.div`
-  margin: 0 auto ;
-  width: 450px;
+  margin: 0 auto;
+  width: 455px;
   height: 350px;
-  box-shadow: 5px 7px 9px rgba(175,175,175,.4);
+  box-shadow: 3px 5px 7px rgba(175,175,175,.8);
   aspect-ratio: 16/9;
   background: #777;
 `;
@@ -19,7 +19,7 @@ const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f1356d;
+  background-color: #f00;
 
 `;
 
@@ -35,13 +35,25 @@ const Button = styled.button`
 `;
 
 const Main = styled.div`
-margin: 0 auto;
+  margin: 0 auto;
   width:100%;
   display: flex;
   flex-wrap: wrap;
 `;
 
 const WeekDay = styled.div`
+  ${(props) =>
+    props.today &&
+    css`
+      border:1px solid #f00;
+    `}
+
+  ${(props) =>
+    props.selected &&
+    css`
+      background-color: red;
+    `}
+
   margin: .03em;
   width: 14%;
   height: 40px;
@@ -49,18 +61,6 @@ const WeekDay = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-
-  ${(props) =>
-    props.today &&
-    css`
-      background-color: #f1356d;
-    `}
-
-  ${(props) =>
-    props.selected &&
-    css`
-      background-color: #f1356d;
-    `}
 `;
 
 export default function Calendar() {
@@ -69,8 +69,8 @@ export default function Calendar() {
   const monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   const leapYearDays = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-  //Po uruchomieniu aplikacji liczby umieszcone w tablicy 'customDays' zostaną zaznaczone na kalendarzu miesięcznym jako liczby dni poszczególnych miesięcy
-  const customDays = [2, 3, 13, 25]
+  //Po uruchomieniu aplikacji liczby umieszcone w tablicy 'ownDaysNumbers' zostaną zaznaczone na kalendarzu miesięcznym jako liczby dni poszczególnych miesięcy
+  const ownDaysNumbers = [3, 9, 13, 31]
 
   const currentDay = new Date();
   const [date, handleSetDate] = useState(currentDay);
@@ -116,12 +116,13 @@ export default function Calendar() {
           .fill(null)
           .map((_, index) => {
             let d = index - (startDay - 2);
-            const filtered = customDays.filter(i => i === d)
+            const filteredDays = ownDaysNumbers.filter(i => i === d)
             return (
               <WeekDay
                 key={index}
                 today={d === currentDay.getDate()}
-                selected={filtered[0]}
+                // selected={d===day}
+                selected={filteredDays[0]}
                 onClick={() => handleSetDate(new Date(year, month, d))}
               >
                 {d > 0 ? d : ''}

@@ -10,4 +10,23 @@ body{
   min-height: 100vh;
   background: #2F4858;
 }
-
+.description{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+}
+.today{
+  margin: 2em 1em 2em .2em;
+  border: 1px solid red;
+  background:#777;
+}
+.ownDaysNumbers{
+  margin: 1em;
+  background-color: #f00;
+}
+.today,.ownDaysNumbers{
+  width: 7%;
+  height: 30px;
+  cursor: pointer;
+}
