@@ -29,7 +29,7 @@ Install all dependencies
 
 ```
 
-npm init
+npm install
 
 ```
 
